@@ -1,0 +1,75 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the paper and this software record."
+type: software
+title: "Representation learning for optical readout using Eigentasks: code"
+authors:
+  - family-names: Chen
+    given-names: Tianyang
+    affiliation: "Princeton University"
+    orcid: "0009-0002-0310-6006"
+  - family-names: Sohoni
+    given-names: Mandar M.
+    affiliation: "Cornell University"
+    orcid: "0000-0003-1008-3869"
+  - family-names: Khan
+    given-names: Saeed A.
+    affiliation: "Cornell University"
+    orcid: "0000-0002-8047-4657"
+  - family-names: Laydevant
+    given-names: Jérémie
+    affiliation: "USRA Research Institute for Advanced Computer Science / Cornell University"
+    orcid: "0009-0002-3544-6355"
+  - family-names: Ma
+    given-names: Shi-Yuan
+    affiliation: "Cornell University"
+    orcid: "0000-0001-8299-6742"
+  - family-names: Wang
+    given-names: Tianyu
+    affiliation: "Cornell University"
+    orcid: "0000-0002-6087-6376"
+  - family-names: McMahon
+    given-names: Peter L.
+    affiliation: "Cornell University"
+    orcid: "0000-0002-1177-9887"
+  - family-names: Türeci
+    given-names: Hakan E.
+    affiliation: "Princeton University"
+    orcid: "0000-0003-4210-3027"
+version: 1.0.0
+date-released: "2026-04-23"
+license: MIT
+repository-code: "https://github.com/TomCty1120/optical-eigentask-learning"
+
+# Uncomment and fill once the Zenodo software record is published:
+# identifiers:
+#   - type: doi
+#     value: "10.5281/zenodo.<CONCEPT_DOI>"
+#     description: "Concept DOI (all versions)"
+#   - type: doi
+#     value: "10.5281/zenodo.<VERSION_DOI>"
+#     description: "This specific version"
+
+# Uncomment and fill once the paper DOI exists:
+# preferred-citation:
+#   type: article
+#   title: "Representation learning for optical readout using Eigentasks"
+#   authors:
+#     - family-names: Chen
+#       given-names: Tianyang
+#     - family-names: Sohoni
+#       given-names: Mandar M.
+#     - family-names: Khan
+#       given-names: Saeed A.
+#     - family-names: Laydevant
+#       given-names: Jérémie
+#     - family-names: Ma
+#       given-names: Shi-Yuan
+#     - family-names: Wang
+#       given-names: Tianyu
+#     - family-names: McMahon
+#       given-names: Peter L.
+#     - family-names: Türeci
+#       given-names: Hakan E.
+#   journal: "<JOURNAL_NAME>"
+#   year: 2026
+#   doi: "<ARTICLE_DOI>"

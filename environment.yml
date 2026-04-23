@@ -1,0 +1,19 @@
+name: eigentask
+channels:
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy>=1.24
+  - scipy>=1.10
+  - scikit-learn>=1.2
+  - pandas>=2.0
+  - matplotlib>=3.7
+  - tqdm>=4.60
+  - pytorch>=2.0
+  - torchvision>=0.15
+  - joblib>=1.4
+  - jupyter
+  - ipykernel
+  - pip:
+    - # all dependencies are covered above
