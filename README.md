@@ -1,4 +1,4 @@
-# Optical Eigentask Learning
+# Representation learning for optical readout using Eigentasks: code
 
 Code for training, analysis, and figure generation accompanying:
 
@@ -27,6 +27,34 @@ This repository contains the code used for:
 
 Large datasets and precomputed outputs are **not** stored in GitHub.
 They are hosted in the companion Zenodo data record.
+
+---
+
+## Quickstart
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/<ORG>/optical-eigentask-learning
+cd optical-eigentask-learning
+
+# 2. Set up the environment
+conda env create -f environment.yml
+conda activate eigentask
+
+# 3. Download data from the Zenodo data record (DOI: 10.5281/zenodo.<DATA_DOI>)
+#    Place the archives in this directory, then:
+mkdir -p data
+tar -xf lens_mnist_low_power.tar  -C data/
+tar -xf lens_mnist_high_power.tar -C data/
+tar -xf lens_mpeg7.tar            -C data/
+tar -xf spdnn_mnist.tar           -C data/
+tar -xf results.tar
+
+# 4. Open the figure notebook
+jupyter notebook code/paper_figures.ipynb
+```
+
+See below for details.
 
 ---
 
@@ -93,6 +121,46 @@ pre-rendered figures under `figures/`, all at the repository root.
 
 ---
 
+## Download guide: what do I need?
+
+The Zenodo data record contains several archives totaling ~7 GB, but you 
+don't need all of them. `figures.zip` is optional (it provides pre-rendered 
+figure files and is not required for regeneration). The table below shows 
+which archives are needed for each task.
+
+Additional archives depend on your goal:
+
+| Task | `results` | `lens_mnist_low_power` | `lens_mnist_high_power` | `lens_mpeg7` | `spdnn_mnist` |
+|---|:---:|:---:|:---:|:---:|:---:|
+| Inspect code only |  |  |  |  |  |
+| Regenerate Fig. 1 (schematic) |  |  |  |  |  |
+| Regenerate Fig. 2 — accuracy panels | ✓ |  |  |  |  |
+| Regenerate Fig. 2 — full (SNR + masks) | ✓ | ✓ |  |  |  |
+| Regenerate Fig. 3 (MPEG-7) | ✓ |  |  | ✓ |  |
+| Regenerate Fig. 4 (SPDNN) | ✓ |  |  |  |  |
+| Regenerate Figs. S3–S6 (MNIST supplementary) | ✓ | ✓ | ✓ |  |  |
+| Regenerate Figs. S8, S9 (SPDNN supplementary) | ✓ |  |  |  |  |
+| Regenerate Fig. S2 (calibration) † |  | (dark) | (dark) | (dark) |  |
+| Re-run training from scratch — MNIST |  | ✓ | ✓ |  |  |
+| Re-run training from scratch — MPEG-7 |  |  |  | ✓ |  |
+| Re-run training from scratch — SPDNN |  |  |  |  | ✓ |
+| Full reproduction from raw data |  | ✓ | ✓ | ✓ | ✓ |
+
+† For Fig. S2 you only need the `raw_dark_frames/` subfolder of each lens
+dataset, not the full per-frame data; see below for a dark-frames-only
+extraction recipe.
+
+Fig. 2 is split into two rows: the accuracy panels (e–h) are produced
+entirely from `results/`, while the SNR histograms (c, d) and eigentask
+masks (b) re-solve the generalized eigenvalue problem on the raw
+low-power frames.
+
+Fig. 4 and Figs. S8–S9 are generated from the precomputed SPDNN result
+files under `results/`; the raw `spdnn_mnist` archive is only needed if
+you want to re-run the SPDNN training/analysis from scratch.
+
+---
+
 ## Expected local layout after extracting the data record
 
 ```text
@@ -131,6 +199,12 @@ unzip figures.zip                 # optional
 ---
 
 ## Reproducing figures
+
+**Prerequisite:** Download and extract the companion data record
+(see [Downloading and extracting](#downloading-and-extracting-the-companion-data-record)
+above). At minimum, `results.tar` is required for most figures; additional
+data archives are needed for specific figures (see the task table in the
+data-record README).
 
 Open the repository root in VS Code or start Jupyter from the repository root,
 then open:
@@ -192,4 +266,4 @@ associated paper.
 ## License
 
 - Code in this repository: **MIT License**
-- Companion data record: see the data-record README for dataset licensing and attribution
+- Companion data record: **CC-BY 4.0**
