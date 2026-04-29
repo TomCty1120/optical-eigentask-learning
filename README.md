@@ -12,7 +12,7 @@ Code for training, analysis, calibration, and figure generation accompanying:
 
 - **GitHub repository:** <https://github.com/TomCty1120/optical-eigentask-learning>
 - **Zenodo archive DOI:** `10.5281/zenodo.19888614` 
-- **Paper / preprint:** `<ARTICLE_DOI_OR_ARXIV_URL>` **(replace when available)**
+- **Paper / preprint:** to be added when available
 
 The GitHub repository is the primary location for source code. The companion
 Zenodo archive is a manually deposited combined record, not a Zenodo-GitHub
@@ -50,14 +50,16 @@ conda activate eigentask
 
 # 3. Download the needed archives from the Zenodo record
 #    DOI: 10.5281/zenodo.19888614
-#    Place the downloaded archives in this repository root, then extract:
+#    Place the downloaded archives in this repository root, then extract
+#    only the archives you downloaded:
 mkdir -p data
-tar -xf lens_mnist_low_power.tar  -C data/
-tar -xf lens_mnist_high_power.tar -C data/
-tar -xf lens_mpeg7.tar            -C data/
-tar -xf spdnn_mnist.tar           -C data/
-tar -xf results.tar
-unzip figures.zip                 # optional; pre-rendered figures only
+
+[ -f lens_mnist_low_power.tar ]  && tar -xf lens_mnist_low_power.tar  -C data/
+[ -f lens_mnist_high_power.tar ] && tar -xf lens_mnist_high_power.tar -C data/
+[ -f lens_mpeg7.tar ]            && tar -xf lens_mpeg7.tar            -C data/
+[ -f spdnn_mnist.tar ]           && tar -xf spdnn_mnist.tar           -C data/
+[ -f results.tar ]               && tar -xf results.tar
+[ -f figures.zip ]               && unzip figures.zip                 # optional; pre-rendered figures only
 
 # 4. Open the figure-generation notebook
 jupyter notebook code/paper_figures.ipynb
