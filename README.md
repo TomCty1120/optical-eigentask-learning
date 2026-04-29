@@ -1,6 +1,6 @@
 # Representation learning for optical readout using Eigentasks: code
 
-Code for training, analysis, and figure generation accompanying:
+Code for training, analysis, calibration, and figure generation accompanying:
 
 > T. Chen\*, M. M. Sohoni\*, S. A. Khan, J. Laydevant, S.-Y. Ma, T. Wang,  
 > P. L. McMahon†, and H. E. Türeci†,  
@@ -8,11 +8,17 @@ Code for training, analysis, and figure generation accompanying:
 
 ---
 
-## Related records
+## Related links
 
-- **Paper:** `<ARTICLE_DOI_OR_URL>`
-- **Code DOI (Zenodo software record):** `10.5281/zenodo.<CODE_DOI>`
-- **Data DOI (Zenodo data record):** `10.5281/zenodo.<DATA_DOI>`
+- **GitHub repository:** <https://github.com/TomCty1120/optical-eigentask-learning>
+- **Zenodo archive DOI:** `10.5281/zenodo.19888614` 
+- **Paper / preprint:** `<ARTICLE_DOI_OR_ARXIV_URL>` **(replace when available)**
+
+The GitHub repository is the primary location for source code. The companion
+Zenodo archive is a manually deposited combined record, not a Zenodo-GitHub
+auto-ingested software release. It contains the datasets, precomputed results,
+optional pre-rendered figures, and an archival snapshot of the code corresponding
+to the paper.
 
 ---
 
@@ -20,13 +26,14 @@ Code for training, analysis, and figure generation accompanying:
 
 This repository contains the code used for:
 
-- feature extraction and classifier training
+- eigentask, PCA, Fourier low-pass, and coarse-graining feature extraction
+- logistic-regression and neural-network classifier training
 - figure generation
-- EMCCD calibration analysis
+- EMCCD calibration and photon-count estimation
 - experiment entry points and Slurm job scripts
 
-Large datasets and precomputed outputs are **not** stored in GitHub.
-They are hosted in the companion Zenodo data record.
+Large datasets and precomputed outputs are **not** stored in GitHub. They are
+hosted in the companion Zenodo archive.
 
 ---
 
@@ -34,27 +41,29 @@ They are hosted in the companion Zenodo data record.
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/<ORG>/optical-eigentask-learning
+git clone https://github.com/TomCty1120/optical-eigentask-learning.git
 cd optical-eigentask-learning
 
 # 2. Set up the environment
 conda env create -f environment.yml
 conda activate eigentask
 
-# 3. Download data from the Zenodo data record (DOI: 10.5281/zenodo.<DATA_DOI>)
-#    Place the archives in this directory, then:
+# 3. Download the needed archives from the Zenodo record
+#    DOI: 10.5281/zenodo.19888614
+#    Place the downloaded archives in this repository root, then extract:
 mkdir -p data
 tar -xf lens_mnist_low_power.tar  -C data/
 tar -xf lens_mnist_high_power.tar -C data/
 tar -xf lens_mpeg7.tar            -C data/
 tar -xf spdnn_mnist.tar           -C data/
 tar -xf results.tar
+unzip figures.zip                 # optional; pre-rendered figures only
 
-# 4. Open the figure notebook
+# 4. Open the figure-generation notebook
 jupyter notebook code/paper_figures.ipynb
 ```
 
-See below for details.
+`figures.zip` is optional and is **not** required to regenerate figures.
 
 ---
 
@@ -63,15 +72,14 @@ See below for details.
 ```text
 optical-eigentask-learning/
 ├── README.md
-├── LICENSE
+├── LICENSE                      # MIT License for code
 ├── CITATION.cff
-├── .zenodo.json
-├── config.py
-├── environment.yml
-├── requirements.txt
+├── config.py                    # Repository-relative path configuration
+├── environment.yml              # Conda environment specification
+├── requirements.txt             # pip dependencies (alternative to conda)
 └── code/
     ├── paper_figures.ipynb
-    ├── training.py
+    ├── training.py              # Core library: eigentask solver, classifiers, transforms
     ├── data_processing_generation/
     │   ├── emccd_calibration_power_estimation.ipynb
     │   └── spdnn_data_generation.ipynb
@@ -97,38 +105,34 @@ conda activate eigentask
 pip install -r requirements.txt
 ```
 
-PyTorch may need a platform-specific install command depending on your
-Python / CUDA setup.
+PyTorch may require a platform-specific installation command depending on your
+Python and CUDA setup.
 
 ---
 
-## Companion data and results
+## Companion Zenodo archive
 
-The companion Zenodo data record contains:
+The companion Zenodo archive is a manually deposited combined record, not a
+Zenodo-GitHub auto-ingested software release. It contains:
 
+- `code.zip` — archival snapshot of the `code/` directory
+- `config.py`, `environment.yml`, `requirements.txt`, `LICENSE`, `CITATION.cff`
 - `lens_mnist_low_power.tar`
 - `lens_mnist_high_power.tar`
 - `lens_mpeg7.tar`
 - `spdnn_mnist.tar`
 - `results.tar`
-- `figures.zip` *(optional)*
+- `figures.zip` *(optional pre-rendered figure outputs)*
 
-**Data DOI:** `10.5281/zenodo.<DATA_DOI>`
+**Zenodo DOI:** `10.5281/zenodo.19888614` 
 
-The code in this repository expects the extracted data under `data/`,
-the precomputed outputs under `results/`, and optional regenerated or
-pre-rendered figures under `figures/`, all at the repository root.
+If you are using this GitHub repository, you generally do **not** need to
+download `code.zip` from Zenodo; download only the data/result archives needed
+for your task.
 
 ---
 
 ## Download guide: what do I need?
-
-The Zenodo data record contains several archives totaling ~7 GB, but you 
-don't need all of them. `figures.zip` is optional (it provides pre-rendered 
-figure files and is not required for regeneration). The table below shows 
-which archives are needed for each task.
-
-Additional archives depend on your goal:
 
 | Task | `results` | `lens_mnist_low_power` | `lens_mnist_high_power` | `lens_mpeg7` | `spdnn_mnist` |
 |---|:---:|:---:|:---:|:---:|:---:|
@@ -147,25 +151,25 @@ Additional archives depend on your goal:
 | Full reproduction from raw data |  | ✓ | ✓ | ✓ | ✓ |
 
 † For Fig. S2 you only need the `raw_dark_frames/` subfolder of each lens
-dataset, not the full per-frame data; see below for a dark-frames-only
-extraction recipe.
+dataset, not the full per-frame data.
 
-Fig. 2 is split into two rows: the accuracy panels (e–h) are produced
-entirely from `results/`, while the SNR histograms (c, d) and eigentask
-masks (b) re-solve the generalized eigenvalue problem on the raw
-low-power frames.
+Fig. 2 is split into two rows: the accuracy panels (e–h) are produced entirely
+from `results/`, while the SNR histograms (c, d) and eigentask masks (b)
+re-solve the generalized eigenvalue problem on the raw low-power frames.
 
-Fig. 4 and Figs. S8–S9 are generated from the precomputed SPDNN result
-files under `results/`; the raw `spdnn_mnist` archive is only needed if
-you want to re-run the SPDNN training/analysis from scratch.
+Fig. 4 and Figs. S8–S9 are generated from the precomputed SPDNN result files
+under `results/`; the raw `spdnn_mnist` archive is only needed if you want to
+re-run the SPDNN training/analysis from scratch.
 
 ---
 
-## Expected local layout after extracting the data record
+## Expected local layout after extracting the Zenodo archives
 
 ```text
 optical-eigentask-learning/
 ├── README.md
+├── LICENSE
+├── CITATION.cff
 ├── config.py
 ├── environment.yml
 ├── requirements.txt
@@ -176,35 +180,12 @@ optical-eigentask-learning/
 │   ├── lens_mpeg7/
 │   └── spdnn_mnist/
 ├── results/
-└── figures/   # optional
-```
-
----
-
-## Downloading and extracting the companion data record
-
-Create or enter the repository root, then unpack the data archives there:
-
-```bash
-# already inside optical-eigentask-learning/
-mkdir -p data
-tar -xf lens_mnist_low_power.tar  -C data/
-tar -xf lens_mnist_high_power.tar -C data/
-tar -xf lens_mpeg7.tar            -C data/
-tar -xf spdnn_mnist.tar           -C data/
-tar -xf results.tar
-unzip figures.zip                 # optional
+└── figures/                     # optional
 ```
 
 ---
 
 ## Reproducing figures
-
-**Prerequisite:** Download and extract the companion data record
-(see [Downloading and extracting](#downloading-and-extracting-the-companion-data-record)
-above). At minimum, `results.tar` is required for most figures; additional
-data archives are needed for specific figures (see the task table in the
-data-record README).
 
 Open the repository root in VS Code or start Jupyter from the repository root,
 then open:
@@ -213,17 +194,12 @@ then open:
 code/paper_figures.ipynb
 ```
 
-For a clean reproduction, run the notebook **top-to-bottom once**.
-Later sections reuse setup and data-loading state from earlier cells.
+For a clean reproduction, run the notebook **top-to-bottom once**. Later
+sections reuse setup and data-loading state from earlier cells; if you execute
+only part of the notebook, run at least the relevant setup/load-data cells first.
 
-```bash
-conda activate eigentask
-jupyter notebook
-# then open code/paper_figures.ipynb
-```
-
-The notebook writes output into `figures/` and may overwrite files with the
-same names.
+The notebook writes output into `figures/` and may overwrite files with the same
+names.
 
 ---
 
@@ -248,22 +224,21 @@ python code/experiments/mnist_logistic.py 0
 jupyter notebook code/data_processing_generation/emccd_calibration_power_estimation.ipynb
 ```
 
-This notebook regenerates the calibration outputs used for the lens-based
-datasets.
+The values reported in the calibration table are the calibrated camera gain
+`g` estimated from the variance-vs-mean slope, not `ηg`. The photon-count
+estimates then use this calibrated gain together with the detector quantum
+efficiency convention used in the paper.
 
 ---
 
 ## Citation
 
-If you use this repository, please cite the **software release** and the
-associated paper.
-
-- See `CITATION.cff` for the repository citation metadata.
-- Use the Zenodo **code DOI** for a frozen release corresponding to the paper.
+If you use this repository, please cite the associated paper and the Zenodo
+archive. See `CITATION.cff` for repository citation metadata.
 
 ---
 
 ## License
 
 - Code in this repository: **MIT License**
-- Companion data record: **CC-BY 4.0**
+- Companion data and precomputed results: **CC BY 4.0**

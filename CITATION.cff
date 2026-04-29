@@ -40,15 +40,6 @@ date-released: "2026-04-23"
 license: MIT
 repository-code: "https://github.com/TomCty1120/optical-eigentask-learning"
 
-# Uncomment and fill once the Zenodo software record is published:
-# identifiers:
-#   - type: doi
-#     value: "10.5281/zenodo.<CONCEPT_DOI>"
-#     description: "Concept DOI (all versions)"
-#   - type: doi
-#     value: "10.5281/zenodo.<VERSION_DOI>"
-#     description: "This specific version"
-
 # Uncomment and fill once the paper DOI exists:
 # preferred-citation:
 #   type: article
