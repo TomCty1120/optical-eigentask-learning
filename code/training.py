@@ -92,7 +92,6 @@ from scipy.ndimage import zoom
 from tqdm import tqdm
 import random
 
-
 # =============================================================================
 # Data utilities
 # =============================================================================
@@ -322,7 +321,8 @@ def standardize_data(data, train_indices=None, zero_center=True):
     Note that `train_std[train_std == 0] = 1` guards against degenerate
     features that are constant across the training set.
     """
-    data = np.asarray(data, dtype=np.float64)
+    data = np.asarray(data)
+    data = data.astype(np.result_type(data.dtype, np.float64), copy=False)
     if train_indices is None:
         train_indices = np.arange(len(data))
     if zero_center:
