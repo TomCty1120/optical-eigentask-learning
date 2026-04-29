@@ -15,7 +15,8 @@ Adapt the following to your cluster:
 All scripts should be submitted **from the repository root**, e.g.:
 
 ```bash
-sbatch slurm/mnist_logistic.slurm
+mkdir -p logs
+sbatch code/slurm_files/mnist_logistic.slurm
 ```
 
 ## Job summary

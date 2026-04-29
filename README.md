@@ -212,6 +212,7 @@ CLI argument indexes a parameter combination.
 
 ```bash
 # HPC
+mkdir -p logs
 sbatch code/slurm_files/mnist_logistic.slurm
 
 # one configuration locally
