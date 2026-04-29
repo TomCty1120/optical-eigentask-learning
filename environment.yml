@@ -15,5 +15,3 @@ dependencies:
   - joblib>=1.4
   - jupyter
   - ipykernel
-  - pip:
-    - # all dependencies are covered above
