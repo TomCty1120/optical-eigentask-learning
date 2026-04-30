@@ -51,7 +51,7 @@ print(f"num_frames = {num_frames}\nseed = {seed}")
 
 for N in N_list:
     print(f"N = {N}")
-    with np.load(dataset_dir / f"mnist_spdnn_{N}_shots_bool.npz") as data:
+    with np.load(dataset_dir / f"mnist_spdnn_N{N}_bool.npz") as data:
         train_shots, train_labels = (
             data["train_shots"].astype(int),
             data["train_labels"],
