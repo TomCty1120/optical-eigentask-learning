@@ -32,7 +32,7 @@ sbatch code/slurm_files/mnist_logistic.slurm
 | spdnn_expts_sim_logistic | 0–139 | 140 | 
 | spdnn_expts_sim_nn | 0–139 | 140 | 
 | spdnn_sim_logistic | 0–139 | 140 |
-| spdnn_sim_nn | 0–139 | 140 | ~30 min |
+| spdnn_sim_nn | 0–139 | 140 |
 
 Times are approximate. If a GPU is available, PyTorch will use it automatically
 (the code checks `torch.cuda.is_available()`), in which case the NN scripts
