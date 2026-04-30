@@ -43,7 +43,6 @@ Representation transforms  W : R^K -> R^{K_r}  (Eq. (2) in the manuscript)
                              filtering and spatial coarse graining").
     downsample_data          Spatial coarse graining by linear-interpolation
                              downsampling (Methods, same section).
-    centered_image_data      Helper: crop a central K_r = L_r x L_r patch.
 
 Classifiers and trainers    F{.} in Eq. (2) of the manuscript
     LR_classifier            Single-layer multinomial logistic regression
@@ -111,7 +110,7 @@ class Torch_Dataset(Dataset):
         # Move the tensors to the target device once during dataset
         # construction so downstream iteration does not repeat host-to-device
         # copies.
-        device = torch.device(dev if torch.cuda.is_available() else "cpu")
+        device = _resolve_device(dev)
 
         # Detect whether the feature array carries non-trivial imaginary
         # content. The 1e-15 tolerance guards against round-off in arrays
@@ -179,6 +178,31 @@ class LR_classifier(nn.Module):
         else:
             Y = self.classifier(X.reshape(X.shape[0], self.input_size))
         return Y
+
+
+def _resolve_device(dev=None):
+    """Return a valid torch device.
+
+    If dev is None, use cuda:0 when CUDA is available, otherwise CPU.
+    If a requested CUDA index is unavailable, fall back to cuda:0.
+    """
+    if dev is None:
+        return torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    if isinstance(dev, torch.device):
+        dev = str(dev)
+    dev_str = str(dev)
+    if dev_str.startswith("cuda"):
+        if not torch.cuda.is_available():
+            return torch.device("cpu")
+        if ":" in dev_str:
+            try:
+                idx = int(dev_str.split(":", 1)[1])
+            except ValueError:
+                return torch.device("cuda:0")
+            if idx < 0 or idx >= torch.cuda.device_count():
+                return torch.device("cuda:0")
+        return torch.device(dev_str)
+    return torch.device(dev_str)
 
 
 def get_accuracy(logit, target):
@@ -386,23 +410,6 @@ def downsample_data(data, L=None, dim="2D"):
 
     else:
         raise ValueError("dim should be '1D' or '2D'")
-
-
-def centered_image_data(data, L=None):
-    """Crop the central L x L patch of each image.
-
-    Helper used for sanity checks and simple centered-crop baselines.
-    Not one of the four noise-mitigation transforms evaluated in the
-    main text.
-    """
-    L_max = np.shape(data)[1]
-    L_samp = L if (L and L <= L_max) else L_max
-
-    return data[
-        :,
-        L_max // 2 - L_samp // 2 : L_max // 2 - L_samp // 2 + L_samp,
-        L_max // 2 - L_samp // 2 : L_max // 2 - L_samp // 2 + L_samp,
-    ].reshape(-1, int(L_samp**2))
 
 
 # =============================================================================
@@ -880,7 +887,7 @@ def LinearRegression(
 def LogisticTrain(
     data_set,
     data_labels,
-    dev="cuda:1",
+    dev=None,
     init_lr=1e-3,
     Epochs=300,
     manual_seed=None,
@@ -921,7 +928,7 @@ def LogisticTrain(
         already be normalized (via `standardize_data`) before being
         passed in.
     dev : str
-        PyTorch device string (e.g. "cuda:0", "cuda:1", "cpu").
+        PyTorch device string (e.g. "cuda:0", "cpu").
     init_lr : float
         Initial learning rate. In the manuscript this is 1e-3 for
         standardized features, and 0.5 for the non-zero-centered
@@ -948,7 +955,7 @@ def LogisticTrain(
     lr_scheduler : {"step_decay", "plateau_reduce"}
         Learning-rate scheduler choice; see above.
     """
-    device = torch.device(dev if torch.cuda.is_available() else "cpu")
+    device = _resolve_device(dev)
     iscomplex = True if (np.max(data_set.imag) > 1e-15) else False
 
     # Load Data
@@ -1197,10 +1204,12 @@ class DNN(nn.Module):
         """
         super(DNN, self).__init__()
 
-        if Nunits == None:
+        if Nunits is None:
             # Two-hidden-layer default; not used by the manuscript's
             # single-hidden-layer experiments.
             Nunits = [100, 100]
+        else:
+            Nunits = list(Nunits)
         self.batchnorm = batchnorm
         # Select nonlinear activation function.
         if nlaf == "relu":
@@ -1210,10 +1219,6 @@ class DNN(nn.Module):
         elif nlaf == "sigmoid":
             self.nlaf = torch.sigmoid
 
-        if Nunits is None:
-            Nunits = [100, 100]
-        else:
-            Nunits = list(Nunits)
         # Prepend the input dimension so consecutive layer widths can
         # be read off pair-by-pair.
         Nunits.insert(0, input_dim)
@@ -1256,7 +1261,7 @@ def DNNTrain(
     data_set,
     data_labels,
     modelargs,
-    dev="cuda:1",
+    dev=None,
     init_lr=1e-3,
     Epochs=300,
     manual_seed=None,
@@ -1291,7 +1296,7 @@ def DNNTrain(
 
     Other parameters: see `LogisticTrain`.
     """
-    device = torch.device(dev if torch.cuda.is_available() else "cpu")
+    device = _resolve_device(dev)
     iscomplex = True if (np.max(data_set.imag) > 1e-15) else False
 
     if manual_seed is not None:
