@@ -120,7 +120,7 @@ for num_frames in num_frames_div:
             XMat = frames[:V_frame].reshape(V_frame, -1).T
             if i >= (NTest + NVal):
                 V += np.cov(XMat)
-                data_train.append(np.mean(frames, axis=0))
+                data_train.append(np.mean(frames[:V_frame], axis=0))
         V = V / NTrain
         data_images = np.array(data_images)
         data_train = np.array(data_train).reshape(NTrain, -1)

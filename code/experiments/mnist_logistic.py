@@ -90,7 +90,7 @@ for i in tqdm(range(N_samp)):
     XMat = frames[:V_frame].reshape(V_frame, -1).T
     if i >= NTest + NVal:
         V += np.cov(XMat)
-        data_train.append(np.mean(frames, axis=0))
+        data_train.append(np.mean(frames[:V_frame], axis=0))
 V = V / NTrain
 
 V_norm = np.zeros((K_max, K_max))
