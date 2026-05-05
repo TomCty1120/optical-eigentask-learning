@@ -1,10 +1,10 @@
-# Representation learning for optical readout using Eigentasks: code
+# Measurement-adapted eigentask representations for photon-limited optical readout: code
 
 Code for training, analysis, calibration, and figure generation accompanying:
 
 > T. Chen\*, M. M. Sohoni\*, S. A. Khan, J. Laydevant, S.-Y. Ma, T. Wang,  
 > P. L. McMahon†, and H. E. Türeci†,  
-> *Representation learning for optical readout using Eigentasks* (2026).
+> *Measurement-adapted eigentask representations for photon-limited optical readout* (2026).
 
 ---
 
