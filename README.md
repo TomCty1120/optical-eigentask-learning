@@ -144,22 +144,22 @@ for your task.
 | Regenerate Fig. 2 — full (SNR + masks) | ✓ | ✓ |  |  |  |
 | Regenerate Fig. 3 (MPEG-7) | ✓ |  |  | ✓ |  |
 | Regenerate Fig. 4 (SPDNN) | ✓ |  |  |  |  |
-| Regenerate Figs. S3–S6 (MNIST supplementary) | ✓ | ✓ | ✓ |  |  |
-| Regenerate Figs. S8, S9 (SPDNN supplementary) | ✓ |  |  |  |  |
-| Regenerate Fig. S2 (calibration) † |  | (dark) | (dark) | (dark) |  |
+| Regenerate Supplementary Figs. 3–6 (MNIST) | ✓ | ✓ | ✓ |  |  |
+| Regenerate Supplementary Figs. 8, 9 (SPDNN) | ✓ |  |  |  |  |
+| Regenerate Supplementary Fig. 2 (calibration) † |  | (dark) | (dark) | (dark) |  |
 | Re-run training from scratch — MNIST |  | ✓ | ✓ |  |  |
 | Re-run training from scratch — MPEG-7 |  |  |  | ✓ |  |
 | Re-run training from scratch — SPDNN |  |  |  |  | ✓ |
 | Full reproduction from raw data |  | ✓ | ✓ | ✓ | ✓ |
 
-† For Fig. S2 you only need the `raw_dark_frames/` subfolder of each lens
+† For Supplementary Fig. 2 you only need the `raw_dark_frames/` subfolder of each lens
 dataset, not the full per-frame data.
 
 Fig. 2 is split into two rows: the accuracy panels (e–h) are produced entirely
 from `results/`, while the SNR histograms (c, d) and eigentask masks (b)
 re-solve the generalized eigenvalue problem on the raw low-power frames.
 
-Fig. 4 and Figs. S8–S9 are generated from the precomputed SPDNN result files
+Fig. 4 and Supplementary Figs. 8–9 are generated from the precomputed SPDNN result files
 under `results/`; the raw `spdnn_mnist` archive is only needed if you want to
 re-run the SPDNN training/analysis from scratch.
 
