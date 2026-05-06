@@ -3,7 +3,7 @@ training.py
 ===============================================================================
 Training and feature-extraction utilities for the manuscript:
 
-    "Representation learning for optical readout using Eigentasks"
+    "Measurement-adapted eigentask representations for photon-limited optical readout"
     T. Chen, M. M. Sohoni, S. A. Khan, J. Laydevant, S.-Y. Ma, T. Wang,
     P. L. McMahon, H. E. Tureci (2026).
 
