@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite both the paper and this software record."
 type: software
-title: "Measurement-adapted eigentask representations for photon-limited optical readout: code"
+title: "Measurement-Adapted Eigentask Representations for Photon-Limited Optical Readout: code"
 authors:
   - family-names: Chen
     given-names: Tianyang
@@ -43,7 +43,7 @@ repository-code: "https://github.com/TomCty1120/optical-eigentask-learning"
 # Uncomment and fill once the paper DOI exists:
 # preferred-citation:
 #   type: article
-#   title: "Measurement-adapted eigentask representations for photon-limited optical readout"
+#   title: "Measurement-Adapted Eigentask Representations for Photon-Limited Optical Readout"
 #   authors:
 #     - family-names: Chen
 #       given-names: Tianyang
