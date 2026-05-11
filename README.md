@@ -146,14 +146,11 @@ for your task.
 | Regenerate Fig. 4 (SPDNN) | ✓ |  |  |  |  |
 | Regenerate Figs. S3–S6 (MNIST) | ✓ | ✓ | ✓ |  |  |
 | Regenerate Figs. S8, S9 (SPDNN) | ✓ |  |  |  |  |
-| Regenerate Fig. S2 (calibration) † |  | (dark) | (dark) | (dark) |  |
+| Regenerate Fig. S2 (calibration) † |  | ✓ | ✓ | ✓ |  |
 | Re-run training from scratch — MNIST |  | ✓ | ✓ |  |  |
 | Re-run training from scratch — MPEG-7 |  |  |  | ✓ |  |
 | Re-run training from scratch — SPDNN |  |  |  |  | ✓ |
 | Full reproduction from raw data |  | ✓ | ✓ | ✓ | ✓ |
-
-† For Fig. S2 you only need the `raw_dark_frames/` subfolder of each lens
-dataset, not the full per-frame data.
 
 Fig. 2 is split into two rows: the accuracy panels (e–h) are produced entirely
 from `results/`, while the SNR histograms (c, d) and eigentask masks (b)
@@ -228,7 +225,7 @@ jupyter notebook code/data_processing_generation/emccd_calibration_power_estimat
 ```
 
 The values reported in the calibration table are the calibrated camera gain
-`g` estimated from the variance-vs-mean slope, not `ηg`. The photon-count
+`g` estimated from the variance-vs-mean slope. The photon-count
 estimates then use this calibrated gain together with the detector quantum
 efficiency convention used in the paper.
 
@@ -244,4 +241,11 @@ archive. See `CITATION.cff` for repository citation metadata.
 ## License
 
 - Code in this repository: **MIT License**
-- Companion data and precomputed results: **CC BY 4.0**
+
+- Study-generated experimental datasets, simulated outputs, and precomputed 
+
+  results: **CC BY 4.0**
+
+- Third-party dataset components included in the metadata files, including
+  original MNIST images and MPEG-7 shape images, remain subject to their
+  original license terms.
