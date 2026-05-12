@@ -40,27 +40,32 @@ date-released: "2026-05-05"
 license: MIT
 repository-code: "https://github.com/TomCty1120/optical-eigentask-learning"
 
-# Uncomment and fill once the paper DOI exists:
-# preferred-citation:
-#   type: article
-#   title: "Measurement-Adapted Eigentask Representations for Photon-Limited Optical Readout"
-#   authors:
-#     - family-names: Chen
-#       given-names: Tianyang
-#     - family-names: Sohoni
-#       given-names: Mandar M.
-#     - family-names: Khan
-#       given-names: Saeed A.
-#     - family-names: Laydevant
-#       given-names: Jérémie
-#     - family-names: Ma
-#       given-names: Shi-Yuan
-#     - family-names: Wang
-#       given-names: Tianyu
-#     - family-names: McMahon
-#       given-names: Peter L.
-#     - family-names: Türeci
-#       given-names: Hakan E.
-#   journal: "<JOURNAL_NAME>"
-#   year: 2026
-#   doi: "<ARTICLE_DOI>"
+preferred-citation:
+  type: article
+  title: "Measurement-Adapted Eigentask Representations for Photon-Limited Optical Readout"
+  authors:
+    - family-names: Chen
+      given-names: Tianyang
+    - family-names: Sohoni
+      given-names: Mandar M.
+    - family-names: Khan
+      given-names: Saeed A.
+    - family-names: Laydevant
+      given-names: Jérémie
+    - family-names: Ma
+      given-names: Shi-Yuan
+    - family-names: Wang
+      given-names: Tianyu
+    - family-names: McMahon
+      given-names: Peter L.
+    - family-names: Türeci
+      given-names: Hakan E.
+  year: 2026
+  date-published: "2026-05-11"
+  status: preprint
+  doi: "10.48550/arXiv.2605.10008"
+  url: "https://arxiv.org/abs/2605.10008"
+  identifiers:
+    - type: other
+      value: "arXiv:2605.10008"
+      description: "arXiv identifier"

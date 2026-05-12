@@ -1,10 +1,13 @@
 # Measurement-Adapted Eigentask Representations for Photon-Limited Optical Readout: code
 
-Code for training, analysis, calibration, and figure generation accompanying:
-
-> T. Chen\*, M. M. Sohoni\*, S. A. Khan, J. Laydevant, S.-Y. Ma, T. Wang,  
-> P. L. McMahon†, and H. E. Türeci†,  
-> *Measurement-Adapted Eigentask Representations for Photon-Limited Optical Readout* (2026).
+> Code for training, analysis, calibration, and figure generation accompanying the preprint:
+>
+> \> T. Chen\*, M. M. Sohoni\*, S. A. Khan, J. Laydevant, S.-Y. Ma, T. Wang,  
+> \> P. L. McMahon†, and H. E. Türeci†,  
+> \> *Measurement-Adapted Eigentask Representations for Photon-Limited Optical Readout*,  
+> \> [arXiv:2605.10008](https://arxiv.org/abs/2605.10008) (2026).
+>
+> \* Equal contribution; † corresponding authors.
 
 ---
 
@@ -12,7 +15,7 @@ Code for training, analysis, calibration, and figure generation accompanying:
 
 - **GitHub repository:** <https://github.com/TomCty1120/optical-eigentask-learning>
 - **Zenodo archive DOI:** `10.5281/zenodo.19888614` 
-- **Paper / preprint:** to be added when available
+- **Paper / preprint:** T. Chen et al., *Measurement-Adapted Eigentask Representations for Photon-Limited Optical Readout*, [arXiv:2605.10008](https://arxiv.org/abs/2605.10008) (2026), DOI: `10.48550/arXiv.2605.10008`
 
 The GitHub repository is the primary location for source code. The companion
 Zenodo archive is a manually deposited combined record, not a Zenodo-GitHub
@@ -233,8 +236,15 @@ efficiency convention used in the paper.
 
 ## Citation
 
-If you use this repository, please cite the associated paper and the Zenodo
-archive. See `CITATION.cff` for repository citation metadata.
+If you use this repository, please cite both:
+
+1. the associated paper/preprint:
+   T. Chen et al., *Measurement-Adapted Eigentask Representations for Photon-Limited Optical Readout*, arXiv:2605.10008 (2026), DOI: `10.48550/arXiv.2605.10008`;
+
+2. the companion Zenodo archive:
+   DOI: `10.5281/zenodo.19888614`.
+
+Machine-readable citation metadata is provided in `CITATION.cff`.
 
 ---
 
